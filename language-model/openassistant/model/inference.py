@@ -30,7 +30,7 @@ def inference(model_inputs:dict) -> dict:
 
     encoded_input = tokenizer(prompt, return_tensors='pt')
     output_sequences = model.generate(
-        input_ids=encoded_input['input_ids'].cuda(0),
+        input_ids=encoded_input['input_ids'].to(model.device),
         do_sample=True,
         max_new_tokens=MAX_NEW_TOKENS,
         num_return_sequences=1,
@@ -40,15 +40,13 @@ def inference(model_inputs:dict) -> dict:
         top_k=4,
         return_dict_in_generate=True,
         repetition_penalty=1.03,
-        eos_token_id=0,
+        eos_token_id=tokenizer.eos_token_id,
         use_cache=True
         )
     gen_sequences = output_sequences.sequences[:, encoded_input['input_ids'].shape[-1]:]
 
-    for sequence in gen_sequences:
-        new_line=tokenizer.decode(sequence, skip_special_tokens=True)
-    
-    result = {"output": new_line}
+    output_text = tokenizer.decode(gen_sequences[0], skip_special_tokens=True)
+    result = {"output": output_text}
     
     return result
 

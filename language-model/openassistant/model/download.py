@@ -1,18 +1,20 @@
 # This runs during container build time to download model weights into the
 # container.
 
+import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 def download_weights():
-    name = "Rallio67/joi_20B_instruct_alpha"
+    name = os.environ.get("MODEL_NAME", "Rallio67/joi_20B_instruct_alpha")
 
     print("[DEBUG]: downloading model: " + name)
 
     try:
         AutoModelForCausalLM.from_pretrained(name, device_map='auto')
-    except:
-        pass
+    except Exception as e:
+        print(f"[ERROR]: Failed to download model weights: {e}")
+        exit(1)
 
     print("[DEBUG]: downloading tokenizer")
 
