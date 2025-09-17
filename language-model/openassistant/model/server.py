@@ -16,12 +16,12 @@ server = Sanic("oa_inference")
 @server.route('/healthcheck', methods=["GET"])
 async def healthcheck(request):
     try:
-        proc = await asyncio.create_subprocess_shell(
+        process = await asyncio.create_subprocess_shell(
             'nvidia-smi',
             stdout=asyncio.subprocess.DEVNULL,
             stderr=asyncio.subprocess.DEVNULL
         )
-        returncode = await proc.wait()
+        returncode = await process.wait()
         gpu = returncode == 0
     except Exception as e:
         gpu = False
@@ -35,9 +35,9 @@ async def handle_inference(request):
 
     # Run the blocking inference call in a thread pool
     loop = asyncio.get_event_loop()
-    output = await loop.run_in_executor(None, inference.inference, model_inputs)
+    inference_result = await loop.run_in_executor(None, inference.inference, model_inputs)
 
-    return response.json(output)
+    return response.json(inference_result)
 
 
 if __name__ == '__main__':

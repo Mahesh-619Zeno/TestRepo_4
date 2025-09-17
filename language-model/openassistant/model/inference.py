@@ -20,8 +20,8 @@ def init():
             load_in_8bit=True
         )
         tokenizer = AutoTokenizer.from_pretrained(name)
-    except Exception as e:
-        logging.error(f"Failed to load model or tokenizer from '{name}': {e}")
+    except Exception as exception:
+        logging.error(f"Failed to load model or tokenizer from '{name}': {exception}")
         model = None
         tokenizer = None
 
@@ -48,12 +48,12 @@ def inference(model_inputs:dict) -> dict:
         eos_token_id=tokenizer.eos_token_id,
         use_cache=True
         )
-    gen_sequences = output_sequences.sequences[:, encoded_input['input_ids'].shape[-1]:]
+    generated_sequences = output_sequences.sequences[:, encoded_input['input_ids'].shape[-1]:]
 
-    output_text = tokenizer.decode(gen_sequences[0], skip_special_tokens=True)
-    result = {"output": output_text}
+    output_text = tokenizer.decode(generated_sequences[0], skip_special_tokens=True)
+    inference_output = {"output": output_text}
     
-    return result
+    return inference_output
 
 if __name__ == "__main__":
     init()
