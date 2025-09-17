@@ -12,8 +12,8 @@ def download_weights():
 
     try:
         AutoModelForCausalLM.from_pretrained(name, device_map='auto')
-    except Exception as e:
-        print(f"[ERROR]: Failed to download model weights: {e}")
+    except Exception as error:
+        print(f"[ERROR]: Failed to download model weights: {error}")
         exit(1)
 
     print("[DEBUG]: downloading tokenizer")

@@ -1,6 +1,7 @@
 # For more info, see my notes here:
 # https://github.com/cedrickchee/chatgpt-universe#open-source-chatgpt
 
+import logging
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
@@ -12,13 +13,17 @@ def init():
 
     name = "Rallio67/joi_20B_instruct_alpha"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        name, 
-        device_map='auto',
-        load_in_8bit=True
-    )
-    
-    tokenizer = AutoTokenizer.from_pretrained(name)
+    try:
+        model = AutoModelForCausalLM.from_pretrained(
+            name,
+            device_map='auto',
+            load_in_8bit=True
+        )
+        tokenizer = AutoTokenizer.from_pretrained(name)
+    except Exception as e:
+        logging.error(f"Failed to load model or tokenizer from '{name}': {e}")
+        model = None
+        tokenizer = None
 
 def inference(model_inputs:dict) -> dict:
     global model
