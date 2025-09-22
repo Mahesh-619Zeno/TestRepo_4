@@ -78,8 +78,8 @@ def main():
 
     try:
         box_calculator = BoxCalculator(int(length), int(width), int(height))
-    except Exception as ex:
-        print(f"Wrong type! {ex}")
+    except Exception as error:
+        print(f"Wrong type! {error}")
         sys.exit()
 
     volume = box_calculator.calculate_volume()
