@@ -1,0 +1,4 @@
+transformers==4.29.2
+bitsandbytes==0.39.0
+accelerate==0.20.3
+sanic>=23.12.1
