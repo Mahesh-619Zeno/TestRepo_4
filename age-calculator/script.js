@@ -21,7 +21,7 @@ function ageCalc() {
 	if (birthDetails.year > currentYear || (birthDetails.month > currentMonth && birthDetails.year == currentYear) ||
 		(birthDetails.date > currentDay && birthDetails.month == currentMonth && birthDetails.year == currentYear)) {
 		alert("Enter Valid Date");
-
+        return;
 	}
 	birthYear = currentYear - birthDetails.year;
 	if (currentMonth >= birthDetails.month) {
