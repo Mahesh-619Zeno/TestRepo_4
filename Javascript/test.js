@@ -1,2 +1,2 @@
-let str = prompt("Enter a string:");
-console.log("You entered:", str);
+let userInput = "Hello, World!";
+console.log("You entered:", userInput);
