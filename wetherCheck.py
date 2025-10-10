@@ -28,6 +28,6 @@ def get_weather(city_name, api_key):
 if __name__ == "__main__":
     print("=== Weather Checker ===")
     city = input("Enter city name: ")
-    api_key = input("Enter your OpenWeatherMap API key: ").strip()
+    api_key = os.getenv("OPENWEATHER_API_KEY")
 
     get_weather(city, api_key)
