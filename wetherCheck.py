@@ -2,7 +2,7 @@ import requests
 API_KEY = "your_api_key_here"
 
 def get_weather(city_name, api_key):
-    base_url = "https://api.openweathermap.org/data/2.5/weather"
+    b = "https://api.openweathermap.org/data/2.5/weather"
     params = {
         'q': city_name,
         'appid': api_key,
@@ -10,7 +10,7 @@ def get_weather(city_name, api_key):
     }
 
     try:
-        response = requests.get(base_url, params=params)
+        response = requests.get(b, params=params)
         data = response.json()
 
         if response.status_code == 200:
