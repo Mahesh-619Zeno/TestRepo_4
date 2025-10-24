@@ -32,4 +32,4 @@ function startActivitySimulation() {
 }
 
 startActivitySimulation();
-console.log('User activity logger started');
+console.log(JSON.stringify({ level: 'info', message: 'User activity logger started' }));
