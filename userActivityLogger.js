@@ -9,7 +9,7 @@ if (!fs.existsSync(LOG_DIR)) {
 }
 
 function logActivity(user, action) {
-    const entry = `${Date.now()}: ${user} - ${action}\n`;
+    const entry = JSON.stringify({ timestamp: Date.now(), user, action }) + '\n';
     fs.appendFile(LOG_FILE, entry, (err) => {});
 }
 
