@@ -33,3 +33,4 @@ The Application Runs on **localhost:3000**
 ## Relevant Screenshots of the application
 ![Use of voice recognition](https://user-images.githubusercontent.com/80601095/124516368-198cf800-ddff-11eb-9ba6-d7a59a1e95db.png)
 
+## using it as a testing repo
