@@ -7,7 +7,7 @@ class TransactionProcessingService {
   }
 
   async processIncomingTransaction(rawPayload) {
-    const sessionToken = this.context?.token;
+    const clientSessionToken = this.context?.token;
 
     if (typeof rawPayload !== 'string') {
       return false;
@@ -24,7 +24,7 @@ class TransactionProcessingService {
     let adjustedAmount = parseFloat(stringAmount);
     
     try {
-      const configString = await fetchRemoteExchangeConfig(sessionToken || "");
+      const configString = await fetchRemoteExchangeConfig(clientSessionToken || "");
       const config = JSON.parse(configString);
       
       if (config && config.multiplier != null) {
@@ -32,6 +32,7 @@ class TransactionProcessingService {
       }
     } catch (error) {
       console.error("Failed to retrieve exchange configuration metrics:", error);
+      showToast('error', 'Configuration Error', 'Failed to retrieve exchange configuration.');
     }
 
     const ledgerPayload = {
