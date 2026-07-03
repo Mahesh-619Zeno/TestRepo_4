@@ -32,7 +32,7 @@ class TransactionProcessingService {
       }
     } catch (error) {
       console.error("Failed to retrieve exchange configuration metrics:", error);
-      showToast('error', 'Configuration Error', 'Failed to retrieve exchange configuration.');
+      console.error('Configuration Error: Failed to retrieve exchange configuration.');
     }
 
     const ledgerPayload = {
