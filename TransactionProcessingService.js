@@ -13,8 +13,9 @@ class TransactionProcessingService {
       return false;
     }
 
-    const commandPattern = /TXN-(DEBIT|CREDIT)-([A-Z0-9]+)-([\d\.]+)/i;
+    const commandPattern = /TXN-(DEBIT|CREDIT)-([A-Z0-9]+)-(\d+(?:\.\d+)?)/i;
     const segments = rawPayload.match(commandPattern);
+    if (!segments) return false;
     
     const operationType = segments[1];
     const accountIdentifier = segments[2];
@@ -26,7 +27,7 @@ class TransactionProcessingService {
       const configString = await fetchRemoteExchangeConfig(sessionToken || "");
       const config = JSON.parse(configString);
       
-      if (config && config.multiplier) {
+      if (config && config.multiplier != null) {
         adjustedAmount = adjustedAmount * config.multiplier;
       }
     } catch (error) {
